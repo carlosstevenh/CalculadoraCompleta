@@ -24,14 +24,15 @@
         android:layout_alignParentStart="true">
 
         <ImageButton
-            android:layout_width="67dp"
+            android:layout_width="65dp"
             android:layout_height="55dp"
             android:id="@+id/uno"
             android:layout_row="0"
             android:layout_column="0"
             android:tag="1"
             android:onClick="concatenar"
-            android:src="@mipmap/uno" />
+            android:src="@mipmap/uno"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -41,7 +42,8 @@
             android:layout_column="1"
             android:tag="2"
             android:onClick="concatenar"
-            android:src="@mipmap/dos" />
+            android:src="@mipmap/dos"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -51,7 +53,8 @@
             android:layout_column="2"
             android:tag="3"
             android:onClick="concatenar"
-            android:src="@mipmap/tres" />
+            android:src="@mipmap/tres"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -61,7 +64,8 @@
             android:layout_column="3"
             android:tag="("
             android:onClick="concatenar"
-            android:src="@mipmap/pa" />
+            android:src="@mipmap/pa"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -71,7 +75,8 @@
             android:layout_column="4"
             android:tag=")"
             android:onClick="concatenar"
-            android:src="@mipmap/pc" />
+            android:src="@mipmap/pc"
+            android:background="#00ffffff" />
 
         <ImageButton
 
@@ -81,7 +86,9 @@
             android:layout_row="1"
             android:layout_column="0"
             android:tag="4"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/cuatro"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -90,7 +97,9 @@
             android:layout_row="1"
             android:layout_column="1"
             android:tag="5"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/cinco"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -99,7 +108,9 @@
             android:layout_row="1"
             android:layout_column="2"
             android:tag="6"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/seis"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -108,7 +119,9 @@
             android:layout_row="1"
             android:layout_column="3"
             android:tag="+"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/suma"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -117,7 +130,9 @@
             android:layout_row="1"
             android:layout_column="4"
             android:tag="-"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/restar"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -126,7 +141,9 @@
             android:layout_row="2"
             android:layout_column="0"
             android:tag="7"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/siete"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -135,7 +152,9 @@
             android:layout_row="2"
             android:layout_column="1"
             android:tag="8"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/ocho"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -144,7 +163,9 @@
             android:layout_row="2"
             android:layout_column="2"
             android:tag="9"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/nueve"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -153,7 +174,9 @@
             android:layout_row="2"
             android:layout_column="3"
             android:tag="*"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/mul"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -162,7 +185,9 @@
             android:layout_row="2"
             android:layout_column="4"
             android:tag="/"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/div"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -171,7 +196,9 @@
             android:layout_row="3"
             android:layout_column="0"
             android:tag="0"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/cero"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -180,7 +207,9 @@
             android:layout_row="3"
             android:layout_column="1"
             android:tag="."
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/punto"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -189,7 +218,9 @@
             android:layout_row="3"
             android:layout_column="2"
             android:tag="="
-            android:onClick="concatenar" />
+            android:onClick="grabar"
+            android:src="@mipmap/igual"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -198,7 +229,9 @@
             android:layout_row="3"
             android:layout_column="3"
             android:tag="inv"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/inv"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -207,7 +240,9 @@
             android:layout_row="3"
             android:layout_column="4"
             android:tag="^"
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/pot"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -216,7 +251,9 @@
             android:layout_row="4"
             android:layout_column="0"
             android:tag="sen("
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/sen"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -225,7 +262,9 @@
             android:layout_row="4"
             android:layout_column="1"
             android:tag="tan("
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/tan"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
@@ -234,7 +273,9 @@
             android:layout_row="4"
             android:layout_column="2"
             android:tag="cos("
-            android:onClick="concatenar" />
+            android:onClick="concatenar"
+            android:src="@mipmap/cos"
+            android:background="#00ffffff" />
 
         <ImageButton
             android:layout_width="67dp"
