@@ -19,6 +19,8 @@ import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
     private EditText res;
+    String ant="";
+    boolean van=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         res.setText(pre.getString("dato",""));
 
     }
-    public void concatenar(View v){
+    public void obtener(View v){
         if(v.getTag().toString().equals("borrar")){
             String cad=res.getText().toString();
             String borrar="";
@@ -41,10 +43,33 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(v.getTag().toString().equals("bt"))res.setText("");
         else res.setText(res.getText()+v.getTag().toString());
+
+
         SharedPreferences prefe = getSharedPreferences("datos", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=prefe.edit();
         editor.putString("dato", res.getText().toString());
         editor.commit();
+    }
+    public void concatenar(View v){
+        String aux = res.getText().toString();
+        int par=0;
+        if(aux.length()==0){
+            if(v.getTag().toString().equals("+")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals(".")||v.getTag().toString().equals("^"))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            else obtener(v);
+        }
+        else if(ant.length()==0) obtener(v);
+        else{
+            if(van){
+                if(v.getTag().toString().equals("+")||v.getTag().toString().equals("-")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals("^")||v.getTag().toString().equals("."))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                else{
+                    obtener(v);
+                    van =false;
+                }
+            }
+            else obtener(v);
+        }
+        ant=v.getTag().toString();
+        if(ant.equals("+")||ant.equals("-")||ant.equals("*")||ant.equals("/")||ant.equals("^")||ant.equals(".")) van = true;
 
     }
     @Override
