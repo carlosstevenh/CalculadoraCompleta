@@ -19,8 +19,9 @@ import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
     private EditText res;
-    String ant="";
-    boolean van=false;
+    String ant="";//verificar lo ultimo q se digito
+    boolean van=false;//si hay operador de ultimo
+    int par=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,16 @@ public class MainActivity extends AppCompatActivity {
     }
     public void obtener(View v){
         if(v.getTag().toString().equals("borrar")){
+            int con=0;
             String cad=res.getText().toString();
             String borrar="";
             int aux = cad.length();
             for(int i=0;i<aux-1;i++){
                 borrar=borrar+cad.charAt(i);
+                con=i;
             }
+            if(cad.charAt(con+1)=='(')par--;
+            else if(cad.charAt(con+1)==')')par++;
             res.setText(borrar);
         }
         else if(v.getTag().toString().equals("bt"))res.setText("");
@@ -51,22 +56,28 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
     public void concatenar(View v){
-        String aux = res.getText().toString();
-        int par=0;
-        if(aux.length()==0){
-            if(v.getTag().toString().equals("+")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals(".")||v.getTag().toString().equals("^"))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        String aux = res.getText().toString();//si tiene algo escrito en la calculadora
+        if(v.getTag().toString().equals("(")){
+            par++;
+            obtener(v);
+        }
+        else if(aux.length()==0){
+            if(v.getTag().toString().equals(")")||v.getTag().toString().equals("+")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals(".")||v.getTag().toString().equals("^"))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
             else obtener(v);
         }
         else if(ant.length()==0) obtener(v);
         else{
             if(van){
-                if(v.getTag().toString().equals("+")||v.getTag().toString().equals("-")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals("^")||v.getTag().toString().equals("."))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                if(v.getTag().toString().equals(")")||v.getTag().toString().equals("+")||v.getTag().toString().equals("-")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals("^")||v.getTag().toString().equals("."))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 else{
                     obtener(v);
                     van =false;
                 }
             }
-            else obtener(v);
+            else {
+                if(v.getTag().toString().equals(")"))par--;
+                obtener(v);
+            }
         }
         ant=v.getTag().toString();
         if(ant.equals("+")||ant.equals("-")||ant.equals("*")||ant.equals("/")||ant.equals("^")||ant.equals(".")) van = true;
@@ -99,14 +110,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void grabar(View v) {
-        try {
-            OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("operaciones.txt", Activity.MODE_APPEND));
-            archivo.write(res.getText().toString()+"\n");
-            archivo.flush();
-            archivo.close();
-        } catch (IOException e) {
-        }
+        if(par==0){
+            try {
+                OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("operaciones.txt", Activity.MODE_APPEND));
+                archivo.write(res.getText().toString()+"\n");
+                archivo.flush();
+                archivo.close();
+            } catch (IOException e) {
+            }
 
+        }
+        else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
     }
 
 }
