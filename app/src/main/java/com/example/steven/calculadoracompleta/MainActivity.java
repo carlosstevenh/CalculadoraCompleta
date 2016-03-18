@@ -10,15 +10,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
     private EditText res;
+    private EditText prueba;
     String ant="";//verificar lo ultimo q se digito
     boolean van=false;//si hay operador de ultimo
     int par=0;
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         res=(EditText)findViewById(R.id.display);
+        prueba=(EditText)findViewById(R.id.prueba);
         SharedPreferences pre = getSharedPreferences("datos", Context.MODE_PRIVATE);
         res.setText(pre.getString("dato",""));
 
@@ -113,14 +119,100 @@ public class MainActivity extends AppCompatActivity {
         if(par==0){
             try {
                 OutputStreamWriter archivo = new OutputStreamWriter(openFileOutput("operaciones.txt", Activity.MODE_APPEND));
-                archivo.write(res.getText().toString()+"\n");
+                archivo.write(res.getText().toString() + "\n");
                 archivo.flush();
                 archivo.close();
+
+                int dig=calcular(res.getText().toString());
+
             } catch (IOException e) {
             }
 
         }
         else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+    }
+    private int calcular(String s){
+        int resultado=0;
+        Stack<String> ope = new Stack<String>();
+        Stack<String> numero = new Stack<String>();
+        int pro=0;
+        String aux="";
+
+        for(int i=0;i<s.length();i++){
+
+            if(s.charAt(i)=='0'||s.charAt(i)=='1'||s.charAt(i)=='2'||s.charAt(i)=='3'||s.charAt(i)=='4'||
+                    s.charAt(i)=='5'||s.charAt(i)=='6'||s.charAt(i)=='7'||s.charAt(i)=='8'||s.charAt(i)=='9'){
+                aux+=s.charAt(i);
+            }
+            else if(s.charAt(i)!='('){
+                numero.push(aux);
+                if(ope.empty()){
+                    if(s.charAt(i)!='('&&s.charAt(i)!=')')ope.push(""+s.charAt(i));
+                }
+                else{
+                    String ult=ope.peek();
+                    if(s.charAt(i)=='+'||s.charAt(i)=='-') pro=1;
+                    else if(s.charAt(i)=='*'||s.charAt(i)=='/')pro=2;
+                    else if(s.charAt(i)=='^')pro=3;
+                    else if(s.charAt(i)==')')pro=4;
+
+                    if(ult.equals("+")||ult.equals("-")){
+                        if(pro==1){
+                            numero.push(ope.pop());
+                            ope.push(""+s.charAt(i));
+                        }
+                        else if(pro==2||pro==3){
+                            while(!ope.empty())numero.push(ope.pop());
+                            ope.push(""+s.charAt(i));
+
+                        }
+                        else while(!ope.empty())numero.push(ope.pop());
+                    }
+                    else if(ult.equals("*")||ult.equals("/")){
+                        if(pro==1){
+                            while(!ope.empty())numero.push(ope.pop());
+                            ope.push(""+s.charAt(i));
+                        }
+                        else if(pro==2){
+                            numero.push(ope.pop());
+                            ope.push(""+s.charAt(i));
+                        }
+                        else if(pro==3)ope.push(""+s.charAt(i));
+                        else while(!ope.empty())numero.push(ope.pop());
+
+                    }
+                    else if(ult.equals("^")){
+                        if(pro<=2){
+                            while(!ope.empty())numero.push(ope.pop());
+                            ope.push(""+s.charAt(i));
+                        }
+                        else if(pro ==3){
+                            numero.push(ope.pop());
+                            ope.push(""+s.charAt(i));
+                        }
+                        else while(!ope.empty())numero.push(ope.pop());
+                    }
+
+                }
+                aux = "";
+            }
+            else if(s.charAt(i)=='('){
+                numero.push(aux);
+                aux="";
+            }
+            else{
+                numero.push(aux);
+                aux="";
+            }
+        }
+        numero.push(aux);
+        String richar="";
+        if(!ope.empty())while(!ope.empty())numero.push(ope.pop());
+
+        while(!numero.empty())richar+=numero.pop();
+        prueba.setText(richar);
+
+        return resultado;
     }
 
 }

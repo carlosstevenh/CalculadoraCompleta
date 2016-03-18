@@ -294,6 +294,14 @@
             android:layout_column="4"
             android:tag="bt"
             android:onClick="concatenar" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/prueba"
+            android:layout_row="6"
+            android:layout_column="2" />
+
     </GridLayout>
 
 </RelativeLayout>
