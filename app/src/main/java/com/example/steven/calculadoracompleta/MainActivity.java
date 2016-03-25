@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         Stack<String> numero = new Stack<String>();
         int pro=0;
         String aux="";
+        boolean van = true;
 
         for(int i=0;i<s.length();i++){
 
@@ -144,70 +145,96 @@ public class MainActivity extends AppCompatActivity {
                     s.charAt(i)=='5'||s.charAt(i)=='6'||s.charAt(i)=='7'||s.charAt(i)=='8'||s.charAt(i)=='9'){
                 aux+=s.charAt(i);
             }
-            else if(s.charAt(i)!='('){
+            else {
                 numero.push(aux);
-                if(ope.empty()){
-                    if(s.charAt(i)!='('&&s.charAt(i)!=')')ope.push(""+s.charAt(i));
-                }
+                if(ope.empty())ope.push(""+s.charAt(i));
                 else{
                     String ult=ope.peek();
                     if(s.charAt(i)=='+'||s.charAt(i)=='-') pro=1;
                     else if(s.charAt(i)=='*'||s.charAt(i)=='/')pro=2;
                     else if(s.charAt(i)=='^')pro=3;
                     else if(s.charAt(i)==')')pro=4;
+                    else if(s.charAt(i)=='(')pro=5;
 
                     if(ult.equals("+")||ult.equals("-")){
                         if(pro==1){
                             numero.push(ope.pop());
                             ope.push(""+s.charAt(i));
                         }
-                        else if(pro==2||pro==3){
-                            while(!ope.empty())numero.push(ope.pop());
-                            ope.push(""+s.charAt(i));
-
+                        else if(pro==2||pro==3||pro==5)ope.push(""+s.charAt(i));
+                        else{
+                            while(!ope.empty()&&van){
+                                if(!ope.peek().equals("("))numero.push(ope.pop());
+                                else{
+                                    ope.pop();
+                                    van=false;
+                                }
+                            }
                         }
-                        else while(!ope.empty())numero.push(ope.pop());
+
                     }
                     else if(ult.equals("*")||ult.equals("/")){
                         if(pro==1){
-                            while(!ope.empty())numero.push(ope.pop());
+                            while(!ope.empty()&&van){
+                                if(ope.peek().equals("(")) van=false;
+                                else numero.push(ope.pop());
+                            }
                             ope.push(""+s.charAt(i));
                         }
                         else if(pro==2){
                             numero.push(ope.pop());
                             ope.push(""+s.charAt(i));
                         }
-                        else if(pro==3)ope.push(""+s.charAt(i));
-                        else while(!ope.empty())numero.push(ope.pop());
+                        else if(pro==3||pro==5)ope.push(""+s.charAt(i));
+                        else{
+                            while(!ope.empty()&&van){
+                                if(!ope.peek().equals("("))numero.push(ope.pop());
+                                else{
+                                    ope.pop();
+                                    van=false;
+                                }
+                            }
+                        }
 
                     }
                     else if(ult.equals("^")){
                         if(pro<=2){
-                            while(!ope.empty())numero.push(ope.pop());
-                            ope.push(""+s.charAt(i));
+                            while(!ope.empty()&&van){
+                                if(ope.peek().equals("(")) van=false;
+                                else numero.push(ope.pop());
+                            }
                         }
                         else if(pro ==3){
                             numero.push(ope.pop());
                             ope.push(""+s.charAt(i));
                         }
-                        else while(!ope.empty())numero.push(ope.pop());
+                        else if(pro==5)ope.push(""+s.charAt(i));
+                        else{
+                            while(!ope.empty()&&van){
+                                if(!ope.peek().equals("("))numero.push(ope.pop());
+                                else{
+                                    ope.pop();
+                                    van=false;
+                                }
+                            }
+                        }
                     }
+                    else if(ult.equals("("))ope.push(""+s.charAt(i));
 
                 }
                 aux = "";
-            }
-            else if(s.charAt(i)=='('){
-                numero.push(aux);
-                aux="";
-            }
-            else{
-                numero.push(aux);
-                aux="";
+                van=true;
+
             }
         }
         numero.push(aux);
         String richar="";
-        if(!ope.empty())while(!ope.empty())numero.push(ope.pop());
+        if(!ope.empty()){
+            while(!ope.empty()){
+                if(!ope.peek().equals("("))numero.push(ope.pop());
+                else ope.pop();
+            }
+        }
 
         while(!numero.empty())richar+=numero.pop();
         prueba.setText(richar);
