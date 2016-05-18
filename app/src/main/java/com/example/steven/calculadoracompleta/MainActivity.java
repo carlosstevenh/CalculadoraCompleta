@@ -63,18 +63,48 @@ public class MainActivity extends AppCompatActivity {
     }
     public void concatenar(View v){
         String aux = res.getText().toString();//si tiene algo escrito en la calculadora
-        if(v.getTag().toString().equals("(")){
-            par++;
-            obtener(v);
+        if(aux.length()==0){
+            if(v.getTag().toString().equals("(")){
+                par++;
+                obtener(v);
+
+            }
+            else if(v.getTag().toString().equals(")")||v.getTag().toString().equals("+")
+                    ||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")
+                    ||v.getTag().toString().equals(".")||v.getTag().toString().equals("^"))
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            else {
+                obtener(v);
+                van=false;
+            }
         }
-        else if(aux.length()==0){
-            if(v.getTag().toString().equals(")")||v.getTag().toString().equals("+")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals(".")||v.getTag().toString().equals("^"))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-            else obtener(v);
-        }
+
         else if(ant.length()==0) obtener(v);
+
+        else if(v.getTag().toString().equals("(")){
+            if(ant.equals("1")||ant.equals("2")||ant.equals("3")||ant.equals("4")||
+                    ant.equals("5")||ant.equals("6")||ant.equals("7")||ant.equals("8")
+                    ||ant.equals("9")||ant.equals("0"))
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            else obtener(v);
+
+
+        }
+
+        else if(v.getTag().toString().equals(".")){
+            if(ant.equals("1")||ant.equals("2")||ant.equals("3")||ant.equals("4")||
+                    ant.equals("5")||ant.equals("6")||ant.equals("7")||ant.equals("8")
+                    ||ant.equals("9")||ant.equals("0"))obtener(v);
+
+            else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        }
         else{
             if(van){
-                if(v.getTag().toString().equals(")")||v.getTag().toString().equals("+")||v.getTag().toString().equals("-")||v.getTag().toString().equals("*")||v.getTag().toString().equals("/")||v.getTag().toString().equals("^")||v.getTag().toString().equals("."))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                if(v.getTag().toString().equals(")")||v.getTag().toString().equals("+")
+                        ||v.getTag().toString().equals("-")||v.getTag().toString().equals("*")
+                        ||v.getTag().toString().equals("/")||v.getTag().toString().equals("^")
+                        ||v.getTag().toString().equals("."))Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+
                 else{
                     obtener(v);
                     van =false;
